@@ -17,7 +17,7 @@ SITES = {
 }
 
 async def send_sites(update: Update, context: ContextTypes.DEFAULT_TYPE, keys):
-    photo_url = "https://imgur.com/a/eY4mJ7F"  # Fotoğraf URL'si
+    photo_url = "https://i.imgur.com/Y2U2Gve.png"  # Fotoğraf URL'si
     keyboard = []
     for key in keys:
         if key in SITES:
