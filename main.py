@@ -4,7 +4,7 @@ import os
 
 TOKEN = os.environ.get("TOKEN")
 
-# Site isimleri ve linkleri (Büyük harfli olarak kalıyor)
+# Site isimleri ve linkleri
 SITES = {
     "BETTİLT": "https://btt-tr.tueyw.com/tr/casino?partner=p5470p22977pa1c9#registration-bonus",
     "TARAFBET": "https://cutt.ly/irvobxsk",
@@ -29,11 +29,11 @@ async def send_sites(update: Update, context: ContextTypes.DEFAULT_TYPE, keys):
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # 📝 Yeni açıklama kısmı burası:
+    # Güncellenmiş açıklama:
     caption_text = "🎰 *BayJackOpts Güvenilir Siteler Listesi* 🎲\n\n" \
                    "🎁 *Hemen Ücretsiz Deneme Bonuslarınızı Alın!* 🤑\n" \
                    "🔗 Aşağıdaki butonlara tıklayarak en popüler ve güvenilir sitelere erişebilirsiniz!\n" \
-                   "💬 İstediğiniz siteyi görmek için örneğin: `!bankobet` yazabilirsiniz.\n\n" \
+                   "💬 İstediğiniz siteyi görmek için örneğin: `!siteadı` yazabilirsiniz.\n\n" \
                    "📌 Tüm siteleri listelemek için: `!site`"
 
     await context.bot.send_photo(
@@ -52,11 +52,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     cmd = text[1:]  # ! işaretinden sonrası
 
     if cmd == "site":
-        # Tüm site butonları gelsin
         await send_sites(update, context, SITES.keys())
     else:
-        # Tekil site komutu
-        keys_lower = {key.lower(): key for key in SITES.keys()}  # Küçük harf mapping
+        keys_lower = {key.lower(): key for key in SITES.keys()}
         if cmd in keys_lower:
             site_key = keys_lower[cmd]
             await send_sites(update, context, [site_key])
