@@ -4,7 +4,7 @@ import os
 
 TOKEN = os.environ.get("TOKEN")
 
-# Site isimleri ve linkleri
+# Site isimleri ve linkleri (Büyük harfli olarak kalıyor)
 SITES = {
     "BETTİLT": "https://btt-tr.tueyw.com/tr/casino?partner=p5470p22977pa1c9#registration-bonus",
     "TARAFBET": "https://cutt.ly/irvobxsk",
@@ -24,16 +24,24 @@ async def send_sites(update: Update, context: ContextTypes.DEFAULT_TYPE, keys):
             keyboard.append([InlineKeyboardButton(key.capitalize(), url=SITES[key])])
 
     if not keyboard:
-        await update.message.reply_text("Maalesef bu site bulunamadı.")
+        await update.message.reply_text("❌ Maalesef bu site bulunamadı.")
         return
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
+    # 📝 Yeni açıklama kısmı burası:
+    caption_text = "🎰 *BayJackOpts Güvenilir Siteler Listesi* 🎲\n\n" \
+                   "🎁 *Hemen Ücretsiz Deneme Bonuslarınızı Alın!* 🤑\n" \
+                   "🔗 Aşağıdaki butonlara tıklayarak en popüler ve güvenilir sitelere erişebilirsiniz!\n" \
+                   "💬 İstediğiniz siteyi görmek için örneğin: `!bankobet` yazabilirsiniz.\n\n" \
+                   "📌 Tüm siteleri listelemek için: `!site`"
+
     await context.bot.send_photo(
         chat_id=update.effective_chat.id,
         photo=photo_url,
-        caption="İşte istediğiniz site(ler):",
-        reply_markup=reply_markup
+        caption=caption_text,
+        reply_markup=reply_markup,
+        parse_mode="Markdown"
     )
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -44,11 +52,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     cmd = text[1:]  # ! işaretinden sonrası
 
     if cmd == "site":
-        # Tüm site butonları
+        # Tüm site butonları gelsin
         await send_sites(update, context, SITES.keys())
     else:
         # Tekil site komutu
-        await send_sites(update, context, [cmd])
+        keys_lower = {key.lower(): key for key in SITES.keys()}  # Küçük harf mapping
+        if cmd in keys_lower:
+            site_key = keys_lower[cmd]
+            await send_sites(update, context, [site_key])
+        else:
+            await update.message.reply_text("❌ Maalesef bu site bulunamadı.\nLütfen `!site` komutuyla tüm siteleri görebilirsiniz.")
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
@@ -57,3 +70,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
