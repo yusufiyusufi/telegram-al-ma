@@ -30,8 +30,8 @@ async def send_sites(update: Update, context: ContextTypes.DEFAULT_TYPE, keys):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     # Güncellenmiş açıklama:
-    caption_text = "🎰 *BayJackOpts Güvenilir Siteler Listesi* 🎲\n\n" \
-                   "🎁 *Hemen Ücretsiz Deneme Bonuslarınızı Alın!* 🤑\n" \
+    caption_text = "🎰 *BayJackpots VIP Siteler Listesi* 🎲\n\n" \
+                   "🎁 *Linkimizden kayıt olanlar nakit etkinliklerden faydalanabilir!* 🤑\n" \
                    "🔗 Aşağıdaki butonlara tıklayarak en popüler ve güvenilir sitelere erişebilirsiniz!\n" \
                    "💬 İstediğiniz siteyi görmek için örneğin: `!siteadı` yazabilirsiniz.\n\n" \
                    "📌 Tüm siteleri listelemek için: `!site`"
